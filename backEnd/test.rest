@@ -1,0 +1,22 @@
+### Add a bike
+POST http://localhost:3000/bikes/addBike
+Content-Type: application/json
+
+{
+    "type": "Cross Country",
+    "image": "https://www.canyon.com/dw/image/v2/BCML_PRD/on/demandware.static/-/Sites-canyon-master/default/dw43edfae3/images/full/full_2023_/2023/full_2023_3443_lux-trail-cf-8_M138_P01_P5.jpg?sw=501&sh=282&sm=fit&sfrm=png&q=90&bgcolor=F2F2F2",
+    "name": "Lux Trail CF 8",
+    "size": "M"
+}
+
+### Get all bikes
+GET http://localhost:3000/bikes/allBikes
+
+### Add a new customer
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "johnsmith@example.com",
+    "password": "ilovebikes123"
+}
