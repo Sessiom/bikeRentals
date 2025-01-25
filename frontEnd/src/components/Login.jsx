@@ -2,7 +2,7 @@ import { login, register } from '../Controllers/authControllers'
 import { useState } from 'react'
 
 export default function Login(props) {
-    const { setSelectedTab } = props
+    const { setSelectedTab, setIsLoggedIn } = props
     const [ email, setEmail] = useState("")
     const [ password, setPassword] = useState("")
 
@@ -10,14 +10,20 @@ export default function Login(props) {
         e.preventDefault();
         if (!email || !password) return; 
         const success = await login(email, password);
-        if (success) setSelectedTab('available-rentals');
+        if (success) {
+            setSelectedTab('available-rentals')
+            setIsLoggedIn(true)
+        };
     }
 
     const handleRegister = async (e) => {
         e.preventDefault();
         if (!email || !password) return;
         const success = await register(email, password); 
-        if (success) setSelectedTab('available-rentals'); 
+        if (success) {
+            setSelectedTab('available-rentals')
+            setIsLoggedIn(true)
+        }; 
     }
 
     return(
