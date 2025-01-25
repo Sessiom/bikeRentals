@@ -1,6 +1,17 @@
+import { getMyRentals } from "../Controllers/bikeControllers"
+
 export default function NavBar(props) {
 
-    const { setSelectedTab, isLoggedIn, setIsLoggedIn }= props
+    const { setSelectedTab, isLoggedIn, setIsLoggedIn, setMyRentals, userData }= props
+
+    async function fetchMyRentals() {
+        try {
+          const rentalData = await getMyRentals();
+          setMyRentals(rentalData);
+        } catch(error) {
+          console.log("Error fetching rentals:", error)
+        } 
+      }
 
     return(
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -11,6 +22,12 @@ export default function NavBar(props) {
             </button>
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav">
+
+                {/* Display signed in user*/}
+                {isLoggedIn ?
+                <li className="nav-item">
+                <a className="nav-link">{`${userData.email} id:${userData.customerId || userData.customer_id}`}</a>
+                </li>: ""}
 
                 {/* Hide sign in if the user is already signed in*/}
                 {!isLoggedIn ?
@@ -29,7 +46,10 @@ export default function NavBar(props) {
                 <a className="nav-link" onClick={() => setSelectedTab('available-rentals')} style={{ cursor: 'pointer' }}>Available Rentals</a>
                 </li>
                 <li className="nav-item">
-                <a className="nav-link" onClick={() => setSelectedTab('my-rentals')} style={{ cursor: 'pointer' }}>My Rentals</a>
+                <a className="nav-link" onClick={() => {
+                    setSelectedTab('my-rentals')
+                    fetchMyRentals()
+                    }} style={{ cursor: 'pointer' }}>My Rentals</a>
                 </li>
                 <li className="nav-item">
                 <a className="nav-link" onClick={() => setSelectedTab('admin')} style={{ cursor: 'pointer' }}>Admin</a>

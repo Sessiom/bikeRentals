@@ -11,7 +11,7 @@ export const register = async(email, password) => {
 
         if (data.token) {
             localStorage.setItem('token', data.token)
-            return true
+            return data
         } else {
             throw Error('Failed to authenticate...')
         }
@@ -34,7 +34,7 @@ export const login = async(email, password) => {
 
         if (data.token) {
             localStorage.setItem('token', data.token)
-            return true
+            return data
         } else {
             throw Error('Failed to authenticate...')
         }

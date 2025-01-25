@@ -3,19 +3,26 @@ import db from '../db.js'
 
 const router = express.Router()
 
-router.get('/myBikes', (req, res) => {
-    const getBikes = db.prepare(`SELECT * FROM rentals WHERE customer_id = ?`)
-    const bikes = getBikes.all(req.customerId)
-    res.json({bikes})
+router.get('/myInfo', (req, res) => {
+    const myInfo = db.prepare(`SELECT * FROM customers WHERE customer_id = ?`)
+    const data = myInfo.get(req.customerId)
+    res.json(data)
+})
+
+router.get('/myRentals', (req, res) => {
+    const getRentalAndBikes = db.prepare(`SELECT * FROM rentals INNER JOIN bikes ON rentals.bike_id = bikes.bike_id WHERE rentals.customer_id = ?`)
+    const rentalInfo = getRentalAndBikes.all(req.customerId)
+    console.log(req.customerId)
+    res.json({rentalInfo})
 })
 
 // For when a customer rents a bike (Set bike to unavailable and add bike to rentals)
-router.update('/:bike_id', (req, res) => {
+router.put('/rentBike/:bike_id', (req, res) => {
     const { bike_id } = req.params
 
     try {
         // update bike to be unavailable
-        const updateBike = db.prepare(`UPDATE bikes SET available = false WHERE id = ?`)
+        const updateBike = db.prepare(`UPDATE bikes SET available = false WHERE bike_id = ?`)
         updateBike.run(bike_id)
   
         // add bike to rentals

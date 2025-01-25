@@ -2,27 +2,29 @@ import { login, register } from '../Controllers/authControllers'
 import { useState } from 'react'
 
 export default function Login(props) {
-    const { setSelectedTab, setIsLoggedIn } = props
+    const { setSelectedTab, setIsLoggedIn, setUserData } = props
     const [ email, setEmail] = useState("")
     const [ password, setPassword] = useState("")
 
     const handleLogin = async (e) => {
         e.preventDefault();
         if (!email || !password) return; 
-        const success = await login(email, password);
-        if (success) {
+        const data = await login(email, password);
+        if (data) {
             setSelectedTab('available-rentals')
             setIsLoggedIn(true)
+            setUserData(data)
         };
     }
 
     const handleRegister = async (e) => {
         e.preventDefault();
         if (!email || !password) return;
-        const success = await register(email, password); 
-        if (success) {
+        const data = await register(email, password); 
+        if (data) {
             setSelectedTab('available-rentals')
             setIsLoggedIn(true)
+            setUserData(data)
         }; 
     }
 

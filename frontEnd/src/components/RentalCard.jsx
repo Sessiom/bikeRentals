@@ -1,7 +1,7 @@
 export default function RentalCard(props) {
 
-    const { bike } = props
-    const { bike_id, type, image, name, size} = bike
+    const { bike, rental } = props
+    const { bike_id, type, image, name, size, available} = bike || rental
 
     return(
         <div className="card m-3" style={{ width: 18 + "rem" }}>
@@ -10,7 +10,7 @@ export default function RentalCard(props) {
             <h5 className="card-title">{type}</h5>
             <p className="card-text">{name}</p>
             <p className="card-text">{size}</p>
-            <a href="#" className="btn btn-primary">Rent</a>
+            <a href="#" className="btn btn-primary" style={{ disabled: !available}}>Rent</a>
         </div>
         </div>
     )
