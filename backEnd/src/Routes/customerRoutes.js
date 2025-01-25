@@ -16,7 +16,7 @@ router.get('/myRentals', (req, res) => {
 })
 
 // For when a customer rents a bike (Set bike to unavailable and add bike to rentals)
-router.put('/rentBike/:bike_id', (req, res) => {
+router.put('/rent/:bike_id', (req, res) => {
     const { bike_id } = req.params
 
     try {
@@ -29,6 +29,27 @@ router.put('/rentBike/:bike_id', (req, res) => {
         addRental.run(req.customerId, bike_id)
 
         res.status(200).json({ message: 'Bike rented successfully'})
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({error: 'Something when wrong, the bike could not be rented'})
+    }
+
+})
+
+// For when a customer returns a bike (Set bike to available and remove it from rentals)
+router.delete('/return/:bike_id', (req, res) => {
+    const { bike_id } = req.params
+
+    try {
+        // remove bike from rentals
+        const addRental = db.prepare(`DELETE FROM rentals WHERE bike_id = ?`)
+        addRental.run(bike_id)
+
+        // update bike to be available
+        const updateBike = db.prepare(`UPDATE bikes SET available = true WHERE bike_id = ?`)
+        updateBike.run(bike_id)
+
+        res.status(200).json({ message: 'Bike returned successfully'})
     } catch (err) {
         console.log(err)
         res.status(500).json({error: 'Something when wrong, the bike could not be rented'})

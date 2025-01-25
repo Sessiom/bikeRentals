@@ -32,7 +32,19 @@ export const getMyRentals = async () => {
 }
 
 export const rentBike = async(bike_id) => {
-    const res = await fetch(`${API_URL}/customer/${bike_id}`, {
+    const res = await fetch(`${API_URL}/customer/rent/${bike_id}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': token
+        }
+    })
+    const data = await res.json()
+    console.log(data)
+}
+
+export const returnBike = async(bike_id) => {
+    const res = await fetch(`${API_URL}/customer/return/${bike_id}`, {
+        method: 'DELETE',
         headers: {
             'Authorization': token
         }

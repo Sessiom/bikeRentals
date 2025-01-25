@@ -49,12 +49,11 @@ function App() {
   }, [])
 
 
-
   return (
     <>
-      <NavBar myRentals={myRentals} userData={userData} setSelectedTab={setSelectedTab} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setMyRentals={setMyRentals}/>
-      { selectedTab == 'sign-in' ? <Login setUserData={setUserData}setSelectedTab={setSelectedTab} setIsLoggedIn={setIsLoggedIn}/> : selectedTab == 'available-rentals' ?
-      <RentalList loading={loading} bikes={bikes} /> : <MyRentals myRentals={myRentals}/>}
+      <NavBar myRentals={myRentals} setBikes={setBikes} userData={userData} setSelectedTab={setSelectedTab} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setMyRentals={setMyRentals}/>
+      { selectedTab == 'sign-in' ? <Login setUserData={setUserData} setSelectedTab={setSelectedTab} setIsLoggedIn={setIsLoggedIn}/> : selectedTab == 'available-rentals' ?
+      <RentalList bikes={bikes} setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals}loading={loading}/> : <MyRentals setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals}/>}
     </>
   )
 }

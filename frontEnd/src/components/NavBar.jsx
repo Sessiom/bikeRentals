@@ -1,18 +1,17 @@
-import { getMyRentals } from "../Controllers/bikeControllers"
-import MyRentals from "./MyRentals";
+import { getBikes, getMyRentals } from "../Controllers/bikeControllers"
 
 export default function NavBar(props) {
 
-    const { myRentals, setSelectedTab, isLoggedIn, setIsLoggedIn, setMyRentals, userData }= props
+    const { setBikes, setMyRentals, setSelectedTab, isLoggedIn, setIsLoggedIn, userData }= props
 
-    async function fetchMyRentals() {
-        try {
-          const rentalData = await getMyRentals();
-          setMyRentals(rentalData);
-        } catch(error) {
-          console.log("Error fetching rentals:", error)
-        } 
-      }
+    // async function fetchMyRentals() {
+    //     try {
+    //       const rentalData = await getMyRentals();
+    //       setMyRentals(rentalData);
+    //     } catch(error) {
+    //       console.log("Error fetching rentals:", error)
+    //     } 
+    //   }
 
     return(
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -35,7 +34,7 @@ export default function NavBar(props) {
                 <li className="nav-item">
                 <a className="nav-link active" aria-current="page" onClick={() => setSelectedTab('sign-in')} style={{ cursor: 'pointer' }}>Sign In</a>
                 </li>: 
-                //Log out
+                // show Log out if user is signed in
                 <li className="nav-item">
                 <a className="nav-link active" aria-current="page" onClick={() => {
                     localStorage.clear()
@@ -44,16 +43,20 @@ export default function NavBar(props) {
                 </li>}
                 
                 <li className="nav-item">
-                <a className="nav-link" onClick={() => setSelectedTab('available-rentals')} style={{ cursor: 'pointer' }}>Available Rentals</a>
+                <a className="nav-link" onClick={async() => {
+                    setSelectedTab('available-rentals')
+                    setBikes(await getBikes())
+                    }} style={{ cursor: 'pointer' }}>Available Rentals</a>
                 </li>
+
+                {isLoggedIn ?
                 <li className="nav-item">
-                <a className="nav-link" onClick={() => {
+                <a className="nav-link" onClick={async() => {
                     setSelectedTab('my-rentals')
-                    // guard clause for api. Refresh page to check again
-                    if(myRentals.length > 0) {return}
-                    fetchMyRentals()
+                    setMyRentals(await getMyRentals())
                     }} style={{ cursor: 'pointer' }}>My Rentals</a>
-                </li>
+                </li>: ""}
+
                 <li className="nav-item">
                 <a className="nav-link" onClick={() => setSelectedTab('admin')} style={{ cursor: 'pointer' }}>Admin</a>
                 </li>
