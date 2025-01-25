@@ -13,7 +13,7 @@ router.post('/addBike', (req, res) => {
 router.get('/allBikes', (req, res) => {
     const getBikes = db.prepare(`SELECT * FROM bikes WHERE available = true`)
     const bikes = getBikes.all()
-    res.json(bikes)
+    res.json({bikes})
 })
 
 export default router

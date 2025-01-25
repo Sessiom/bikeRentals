@@ -11,9 +11,9 @@ export default function RentalList(props) {
     return(
         <div className="container mt-3">
             <div className="row justify-content-center">  
-                    {bikes.map((bike) => {
+                    {bikes.length > 1 ? bikes.map((bike) => {
                         return <RentalCard key={bike.bike_id} bike={bike}/>
-                    })}
+                    }) : "No bikes available"}
             </div>
         </div>
     )

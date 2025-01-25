@@ -12,6 +12,6 @@ export const addBike = async (type, image, name, size) => {
 
 export const getBikes = async () => {
     const response = await fetch(`${API_URL}/bikes/allBikes`)
-    const bikes = await response.json()
-    return bikes
+    const data = await response.json()
+    return data.bikes
 }

@@ -23,7 +23,7 @@ db.exec(`
   `);
 
   db.exec(`
-    CREATE TABLE IF NOT EXISTS checked_out(
+    CREATE TABLE IF NOT EXISTS rentals(
       confirmation_id INTEGER PRIMARY KEY AUTOINCREMENT,
       customer_id INT,
       bike_id INT,

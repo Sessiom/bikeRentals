@@ -3,11 +3,13 @@ import RentalList from "./components/RentalList"
 import { getBikes } from "./Controllers/bikeControllers"
 import { useState, useEffect } from "react"
 import Login from "./components/Login"
+import MyRentals from "./components/MyRentals"
 
 function App() {
   const [bikes, setBikes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedTab, setSelectedTab] = useState('login')
+  const [selectedTab, setSelectedTab] = useState('available-rentals')
+  
   
   useEffect(() => {
       async function fetchBikes() {
@@ -27,9 +29,9 @@ function App() {
 
   return (
     <>
-      <NavBar />
-      { selectedTab == 'login' ? <Login/> : 
-      <RentalList loading={loading} bikes={bikes}/>}
+      <NavBar setSelectedTab={setSelectedTab}/>
+      { selectedTab == 'sign-in' ? <Login setSelectedTab={setSelectedTab}/> : selectedTab == 'available-rentals' ?
+      <RentalList loading={loading} bikes={bikes} /> : <MyRentals/>}
     </>
   )
 }
