@@ -5,12 +5,14 @@ export default function Login(props) {
     const { setSelectedTab, setIsLoggedIn, setUserData } = props
     const [ email, setEmail] = useState("")
     const [ password, setPassword] = useState("")
+    const [ message, setMessage] = useState("")
 
     const handleLogin = async (e) => {
         e.preventDefault();
         if (!email || !password) return; 
         const data = await login(email, password);
-        if (data) {
+        setMessage(data.message)
+        if (data.email) {
             setSelectedTab('available-rentals')
             setIsLoggedIn(true)
             setUserData(data)
@@ -21,7 +23,8 @@ export default function Login(props) {
         e.preventDefault();
         if (!email || !password) return;
         const data = await register(email, password); 
-        if (data) {
+        setMessage(data.message)
+        if (data.email) {
             setSelectedTab('available-rentals')
             setIsLoggedIn(true)
             setUserData(data)
@@ -41,12 +44,13 @@ export default function Login(props) {
                 <input type="password" className="form-control" id="password"
                 onChange={(e) => setPassword(e.target.value)}/>
             </div>
+            <p className="text-danger">{message}</p>
             <button onClick ={
                 handleLogin
             }type="submit" className="btn btn-primary">Login</button>
             <button onClick = {
                 handleRegister
-            }type="submit" className="btn btn-primary m-1">Register</button>
+            }type="submit" className="btn btn-primary m-1" disabled>Register</button>
             </form>
         </div>
     )

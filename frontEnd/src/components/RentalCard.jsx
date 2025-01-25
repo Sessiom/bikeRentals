@@ -1,7 +1,6 @@
 export default function RentalCard(props) {
 
     const { bike, rental } = props
-    console.log(rental)
     const { bike_id, type, image, name, size, available} = bike || rental
 
     return(
