@@ -46,7 +46,6 @@ router.post('/login', (req, res) =>{
 
          // After authenticating send back a JWT
          const customerId = customer.customer_id
-         console.log(customerId)
          const token = jwt.sign({ id: customerId }, process.env.JWT_SECRET, { expiresIn: '24h' })
          res.json({ token, customerId, email })
     } catch (err) {

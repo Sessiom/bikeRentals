@@ -52,7 +52,7 @@ function App() {
 
   return (
     <>
-      <NavBar userData={userData} setSelectedTab={setSelectedTab} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setMyRentals={setMyRentals}/>
+      <NavBar myRentals={myRentals} userData={userData} setSelectedTab={setSelectedTab} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setMyRentals={setMyRentals}/>
       { selectedTab == 'sign-in' ? <Login setUserData={setUserData}setSelectedTab={setSelectedTab} setIsLoggedIn={setIsLoggedIn}/> : selectedTab == 'available-rentals' ?
       <RentalList loading={loading} bikes={bikes} /> : <MyRentals myRentals={myRentals}/>}
     </>

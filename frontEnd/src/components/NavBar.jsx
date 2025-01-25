@@ -1,8 +1,9 @@
 import { getMyRentals } from "../Controllers/bikeControllers"
+import MyRentals from "./MyRentals";
 
 export default function NavBar(props) {
 
-    const { setSelectedTab, isLoggedIn, setIsLoggedIn, setMyRentals, userData }= props
+    const { myRentals, setSelectedTab, isLoggedIn, setIsLoggedIn, setMyRentals, userData }= props
 
     async function fetchMyRentals() {
         try {
@@ -48,6 +49,8 @@ export default function NavBar(props) {
                 <li className="nav-item">
                 <a className="nav-link" onClick={() => {
                     setSelectedTab('my-rentals')
+                    // guard clause for api. Refresh page to check again
+                    if(myRentals.length > 0) {return}
                     fetchMyRentals()
                     }} style={{ cursor: 'pointer' }}>My Rentals</a>
                 </li>

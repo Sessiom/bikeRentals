@@ -12,7 +12,6 @@ router.get('/myInfo', (req, res) => {
 router.get('/myRentals', (req, res) => {
     const getRentalAndBikes = db.prepare(`SELECT * FROM rentals INNER JOIN bikes ON rentals.bike_id = bikes.bike_id WHERE rentals.customer_id = ?`)
     const rentalInfo = getRentalAndBikes.all(req.customerId)
-    console.log(req.customerId)
     res.json({rentalInfo})
 })
 
