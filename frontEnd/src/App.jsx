@@ -45,6 +45,8 @@ function App() {
       if(token) {
         fetchMyData()
         setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
       }
   }, [])
 
