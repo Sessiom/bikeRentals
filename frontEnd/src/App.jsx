@@ -1,10 +1,10 @@
 import NavBar from "./components/NavBar"
 import RentalList from "./components/RentalList"
-import { getBikes } from "./Controllers/bikeControllers"
+import { getAvailableBikes } from "./Controllers/bikeControllers"
 import { useState, useEffect } from "react"
-import { login } from "./Controllers/authControllers"
 import Login from "./components/Login"
 import MyRentals from "./components/MyRentals"
+import Admin from "./components/admin"
 
 function App() {
   const [userData, setUserData] = useState({});
@@ -19,7 +19,7 @@ function App() {
 
       async function fetchBikes() {
         try {
-          const bikesData = await getBikes();
+          const bikesData = await getAvailableBikes();
           setBikes(bikesData);
         } catch(error) {
           console.log("Error fetching bikes:", error)
@@ -51,9 +51,15 @@ function App() {
 
   return (
     <>
-      <NavBar myRentals={myRentals} setBikes={setBikes} userData={userData} setSelectedTab={setSelectedTab} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setMyRentals={setMyRentals}/>
-      { selectedTab == 'sign-in' ? <Login setUserData={setUserData} setSelectedTab={setSelectedTab} setIsLoggedIn={setIsLoggedIn}/> : selectedTab == 'available-rentals' ?
-      <RentalList bikes={bikes} setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals}loading={loading}/> : <MyRentals setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals}/>}
+      <NavBar selectedTab={selectedTab} myRentals={myRentals} setBikes={setBikes} userData={userData} setSelectedTab={setSelectedTab} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setMyRentals={setMyRentals}/>
+      { selectedTab == 'sign-in' ? 
+            <Login setUserData={setUserData} setSelectedTab={setSelectedTab} setIsLoggedIn={setIsLoggedIn}/> : 
+        selectedTab == 'available-rentals' || selectedTab == 'all-rentals'?
+            <RentalList bikes={bikes} setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals} loading={loading}/> : 
+        selectedTab == 'my-rentals' ? 
+            <MyRentals setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals}/> :
+        selectedTab == 'admin' ? 
+            <Admin /> : ""}
     </>
   )
 }
