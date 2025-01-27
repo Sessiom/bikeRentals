@@ -15,11 +15,11 @@ router.post('/register', (req, res) =>{
     try {
         const insertCustomer = db.prepare(`INSERT INTO customers (email, password) VALUES (?, ?)`)
         const customer = insertCustomer.run(email, hashedPassword)
-        const customerId = customer.lastInsertRowid
+        const customer_id = customer.lastInsertRowid
         const token = jwt.sign({ id: customerId }, process.env.JWT_SECRET, { expiresIn: '24h'})
 
         // After creating a new customer send back a JWT
-        res.json({ token, customerId, email })
+        res.json({ token, customer_id, email })
     } catch(err) {
         console.log(err)
         res.sendStatus(500)
@@ -45,9 +45,9 @@ router.post('/login', (req, res) =>{
         if (!passwordIsValid) { return res.status(401).send({ message: "Invalid password" }) }
 
          // After authenticating send back a JWT
-         const customerId = customer.customer_id
+         const customer_id = customer.customer_id
          const token = jwt.sign({ id: customerId }, process.env.JWT_SECRET, { expiresIn: '24h' })
-         res.json({ token, customerId, email })
+         res.json({ token, customer_id, email })
     } catch (err) {
         console.log(err)
         res.sendStatus(500)

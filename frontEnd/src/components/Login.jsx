@@ -12,6 +12,8 @@ export default function Login(props) {
         if (!email || !password) return; 
         const data = await login(email, password);
         setMessage(data.message)
+
+        // If the user is created
         if (data.email) {
             setSelectedTab('available-rentals')
             setIsLoggedIn(true)
@@ -24,6 +26,8 @@ export default function Login(props) {
         if (!email || !password) return;
         const data = await register(email, password); 
         setMessage(data.message)
+
+        // If the user is created
         if (data.email) {
             setSelectedTab('available-rentals')
             setIsLoggedIn(true)

@@ -59,8 +59,8 @@ export default function NavBar(props) {
                 <li className="nav-item">
                 <a className={selectedTab == 'admin' ? "nav-link text-success" :"nav-link" } onClick={async() => {
                     const res = await validate()
-                    if(res.message == "Access Denied"){setSelectedTab('error')}
-                    else setSelectedTab('admin')
+                    if(res.message == "Access Granted"){setSelectedTab('admin')}
+                    else setSelectedTab('error')
                     }} style={{ cursor: 'pointer' }}>Admin</a>
                 </li>
             </ul>

@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react'
 import CustomerList from "./CustomerList"
 import AddBikeForm from "./AddBikeForm"
 import RentalManager from "./RentalManager"
+import BikeList from "./BikeList"
+import { getAllBikes } from "../Controllers/bikeControllers"
 
 export default function Admin(props) {
     const { userData } = props
     const [ customers, setCustomers] = useState([])
-    const [ selectedTab, setSelectedTab] = useState("customer-list")
+    const [ bikes, setBikes] = useState([])
     const [ rentalData, setRentalData] = useState([])
+    const [ selectedTab, setSelectedTab] = useState("customer-list")
 
     useEffect( () => {
 
@@ -30,6 +33,13 @@ export default function Admin(props) {
             }}>Customers list</a>
         </li>
         <li className="nav-item">
+            <a className="nav-link active" style={{ cursor: 'pointer' }} onClick={async () => {
+                const bikes = await getAllBikes()
+                setBikes(bikes)
+                setSelectedTab("bike-manager")
+            }}>Bike list</a>
+        </li>
+        <li className="nav-item">
             <a className="nav-link" style={{ cursor: 'pointer' }} onClick={ () => setSelectedTab("add-new-bike")}>Add new bike</a>
         </li>
         </ul>
@@ -39,7 +49,7 @@ export default function Admin(props) {
             {selectedTab == "customer-list" ? <CustomerList setRentalData={setRentalData} setSelectedTab={setSelectedTab} userData={userData} customers={customers} setCustomers={setCustomers}/> : 
             selectedTab == "add-new-bike" ? <AddBikeForm /> : 
             selectedTab == "rental-manager" ? <RentalManager setRentalData={setRentalData} rentalData={rentalData}/>:
-            selectedTab == "bike-manager"? "":
+            selectedTab == "bike-manager"? <BikeList bikes={bikes} setBikes={setBikes}/>:
             "" }
         </div>
         </div>
