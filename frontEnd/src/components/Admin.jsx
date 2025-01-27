@@ -2,11 +2,13 @@ import {getAllCustomers}from "../Controllers/adminControllers"
 import { useState, useEffect } from 'react'
 import CustomerList from "./CustomerList"
 import AddBikeForm from "./AddBikeForm"
+import RentalManager from "./RentalManager"
 
 export default function Admin(props) {
     const { userData } = props
     const [ customers, setCustomers] = useState([])
     const [ selectedTab, setSelectedTab] = useState("customer-list")
+    const [ rentalData, setRentalData] = useState([])
 
     useEffect( () => {
 
@@ -34,8 +36,11 @@ export default function Admin(props) {
 
         <div className="container mt-3">
         <div className="row justify-content-center"> 
-            {selectedTab == "customer-list" ? <CustomerList userData={userData} customers={customers} setCustomers={setCustomers}/> : 
-            selectedTab == "add-new-bike" ? <AddBikeForm /> : "" }
+            {selectedTab == "customer-list" ? <CustomerList setRentalData={setRentalData} setSelectedTab={setSelectedTab} userData={userData} customers={customers} setCustomers={setCustomers}/> : 
+            selectedTab == "add-new-bike" ? <AddBikeForm /> : 
+            selectedTab == "rental-manager" ? <RentalManager setRentalData={setRentalData} rentalData={rentalData}/>:
+            selectedTab == "bike-manager"? "":
+            "" }
         </div>
         </div>
         </>

@@ -1,9 +1,9 @@
 import { deleteCustomer } from "../Controllers/adminControllers"
+import { getCustomerRentalsById } from "../Controllers/adminControllers"
 
 export default function CustomerList(props) {
 
-    const { customers, setCustomers, userData } = props
-    console.log(userData)
+    const { customers, setCustomers, userData, setSelectedTab, setRentalData } = props
     return(
         <table className="table table-hover">
             <thead>
@@ -21,11 +21,13 @@ export default function CustomerList(props) {
                             <tr key={customer.customer_id}>
                             <th scope="row">{customer.customer_id}</th>
                             <td>{customer.email}</td>
-                            <td><button className="btn btn-primary">Bike count: {customer.rental_count}</button></td>
+                            <td><button className={ customer.rental_count == 0 ? "btn btn-primary disabled": "btn btn-primary" } onClick={ async () =>{
+                                setRentalData( await getCustomerRentalsById(customer.customer_id))
+                                setSelectedTab('rental-manager')
+                            }}>See {customer.rental_count} {customer.rental_count == 1 ? "Bike": "Bikes"}</button></td>
                             <td><button className={ userData.customer_id == customer.customer_id ? "btn btn-danger disabled": "btn btn-danger" } onClick={async() => {
                                 await deleteCustomer(customer.customer_id)
                                 setCustomers(customers.filter((newCustomer) => newCustomer.customer_id != customer.customer_id))
-                                console.log(customers)
                             }}>Delete</button></td>
                             </tr>
                         )

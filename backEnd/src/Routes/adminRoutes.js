@@ -31,8 +31,15 @@ router.get('/allCustomers', (req, res) => {
         customers.customer_id;
     `) 
     const data = getCustomers.all()
-    
+
     res.json( data )
+})
+
+router.get('/customerRentals/:customer_id', (req, res) => {
+    const { customer_id } = req.params
+    const getCustomerRentals = db.prepare(`SELECT * FROM rentals INNER JOIN bikes ON rentals.bike_id = bikes.bike_id INNER JOIN customers ON rentals.customer_id = customers.customer_id WHERE rentals.customer_id = ?`)
+    const customerRentals = getCustomerRentals.all(customer_id)
+    res.json(customerRentals)
 })
 
 // For permanently deleting a bike

@@ -7,7 +7,7 @@ export default function MyRentals(props) {
         <div className="container mt-3">
             <div className="row justify-content-center">  
                     {myRentals.length > 0 ? myRentals.map((rental) => {
-                        return <PersonalRentalCard key={rental.bike_id} rental={rental} myRentals={myRentals} setMyRentals={setMyRentals} />
+                        return <PersonalRentalCard key={rental.confirmation_id} rental={rental} myRentals={myRentals} setMyRentals={setMyRentals} />
                     }) : "You have no rentals"}
             </div>
         </div>
