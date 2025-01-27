@@ -35,6 +35,12 @@ function App() {
                 'Authorization': token
               }})
           const data = await res.json()
+
+          // When token expires
+          if(data.message == 'Invalid token'){ 
+            setIsLoggedIn(false);
+            return
+          }
           setUserData(data)
         } catch(err) {
           console.log(err)
@@ -45,9 +51,7 @@ function App() {
       if(token) {
         fetchMyData()
         setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
+      } 
   }, [])
 
 

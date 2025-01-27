@@ -1,14 +1,16 @@
 const API_URL = import.meta.env.VITE_API_URL
 const token = localStorage.getItem('token')
 
-export const addBike = async (type, image, name, size) => {
-    const res = await fetch(`${API_URL}/bikes/addBike`, {
+export const addBike = async (type, size, image, name) => {
+    const res = await fetch(`${API_URL}/admin/addBike`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'authorization': token,
+            'Content-Type': 'application/json' },
         body: JSON.stringify({ type, image, name, size })
     })
-    data = await res.json()
-    console.log(data)
+    const data = await res.json()
+    return data
 }
 
 export const getAvailableBikes = async () => {
