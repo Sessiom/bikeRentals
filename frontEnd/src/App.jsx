@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import Login from "./components/Login"
 import MyRentals from "./components/MyRentals"
 import Admin from "./components/admin"
+import ErrorPage from "./components/ErrorPage"
 
 function App() {
   const [userData, setUserData] = useState({});
@@ -65,7 +66,7 @@ function App() {
         selectedTab == 'my-rentals' ? 
             <MyRentals setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals}/> :
         selectedTab == 'admin' ? 
-            <Admin /> : ""}
+            <Admin userData={userData}/> : <ErrorPage/>}
     </>
   )
 }

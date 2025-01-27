@@ -1,11 +1,21 @@
 import {getAllCustomers}from "../Controllers/adminControllers"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import CustomerList from "./CustomerList"
 import AddBikeForm from "./AddBikeForm"
 
-export default function Admin() {
+export default function Admin(props) {
+    const { userData } = props
     const [ customers, setCustomers] = useState([])
-    const [ selectedTab, setSelectedTab] = useState("")
+    const [ selectedTab, setSelectedTab] = useState("customer-list")
+
+    useEffect( () => {
+
+        async function loadCustomers() {
+            const customers = await getAllCustomers()
+            setCustomers(customers)
+        }
+        loadCustomers()
+    }, [])
 
     return(
         <>
@@ -24,7 +34,7 @@ export default function Admin() {
 
         <div className="container mt-3">
         <div className="row justify-content-center"> 
-            {selectedTab == "customer-list" ? <CustomerList customers={customers} setCustomers={setCustomers}/> : 
+            {selectedTab == "customer-list" ? <CustomerList userData={userData} customers={customers} setCustomers={setCustomers}/> : 
             selectedTab == "add-new-bike" ? <AddBikeForm /> : "" }
         </div>
         </div>

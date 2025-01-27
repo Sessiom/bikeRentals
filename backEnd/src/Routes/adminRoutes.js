@@ -31,6 +31,7 @@ router.get('/allCustomers', (req, res) => {
         customers.customer_id;
     `) 
     const data = getCustomers.all()
+    
     res.json( data )
 })
 
@@ -77,6 +78,10 @@ router.delete('/deleteCustomer/:customer_id', (req, res) => {
         console.log(err)
         res.status(500).json({error: 'Something went wrong, the customer could not be deleted'})
     }
+})
+
+router.get('/', (req, res) =>{
+    res.json({ message: "Access Granted"})
 })
 
 export default router

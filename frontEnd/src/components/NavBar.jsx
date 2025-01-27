@@ -1,3 +1,4 @@
+import { validate } from "../Controllers/adminControllers"
 import { getAllBikes, getAvailableBikes, getMyRentals } from "../Controllers/bikeControllers"
 
 export default function NavBar(props) {
@@ -17,7 +18,7 @@ export default function NavBar(props) {
                 {/* Display signed in user*/}
                 {isLoggedIn ?
                 <li className="nav-item">
-                <a className="nav-link active">{`${userData.email} id:${userData.customerId || userData.customer_id}`}</a>
+                <a className="nav-link active">{`${userData.email} id:${userData.customer_id}`}</a>
                 </li>: ""}
 
                 {/* Hide sign in if the user is already signed in*/}
@@ -56,7 +57,11 @@ export default function NavBar(props) {
                 </li>: ""}
 
                 <li className="nav-item">
-                <a className={selectedTab == 'admin' ? "nav-link text-success" :"nav-link" } onClick={() => setSelectedTab('admin')} style={{ cursor: 'pointer' }}>Admin</a>
+                <a className={selectedTab == 'admin' ? "nav-link text-success" :"nav-link" } onClick={async() => {
+                    const res = await validate()
+                    if(res.message == "Access Denied"){setSelectedTab('error')}
+                    else setSelectedTab('admin')
+                    }} style={{ cursor: 'pointer' }}>Admin</a>
                 </li>
             </ul>
             </div>
