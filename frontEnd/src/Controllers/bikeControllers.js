@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL
-const token = localStorage.getItem('token')
 
 export const addBike = async (type, size, image, name) => {
+    const token = localStorage.getItem('token')
     const res = await fetch(`${API_URL}/admin/addBike`, {
         method: 'POST',
         headers: { 
@@ -26,6 +26,7 @@ export const getAllBikes = async () => {
 }
 
 export const getMyRentals = async () => {
+    const token = localStorage.getItem('token')
     try{
         const res = await fetch(`${API_URL}/customer/myRentals`, {
             headers: {
@@ -40,6 +41,7 @@ export const getMyRentals = async () => {
 }
 
 export const rentBike = async(bike_id) => {
+    const token = localStorage.getItem('token')
     const res = await fetch(`${API_URL}/customer/rent/${bike_id}`, {
         method: 'PUT',
         headers: {
@@ -51,6 +53,7 @@ export const rentBike = async(bike_id) => {
 }
 
 export const returnBike = async(bike_id) => {
+    const token = localStorage.getItem('token')
     const res = await fetch(`${API_URL}/customer/return/${bike_id}`, {
         method: 'DELETE',
         headers: {

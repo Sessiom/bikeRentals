@@ -24,7 +24,7 @@ export default function Admin() {
 
         <div className="container mt-3">
         <div className="row justify-content-center"> 
-            {selectedTab == "customer-list" ? <CustomerList customers={customers} /> : 
+            {selectedTab == "customer-list" ? <CustomerList customers={customers} setCustomers={setCustomers}/> : 
             selectedTab == "add-new-bike" ? <AddBikeForm /> : "" }
         </div>
         </div>

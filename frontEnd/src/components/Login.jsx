@@ -50,7 +50,7 @@ export default function Login(props) {
             }type="submit" className="btn btn-primary">Login</button>
             <button onClick = {
                 handleRegister
-            }type="submit" className="btn btn-primary m-1" disabled>Register</button>
+            }type="submit" className="btn btn-primary m-1" >Register</button>
             </form>
         </div>
     )

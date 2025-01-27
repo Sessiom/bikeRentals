@@ -31,7 +31,7 @@ router.put('/rent/:bike_id', (req, res) => {
         res.status(200).json({ message: 'Bike rented successfully'})
     } catch (err) {
         console.log(err)
-        res.status(500).json({error: 'Something when wrong, the bike could not be rented'})
+        res.status(500).json({error: 'Something went wrong, the bike could not be rented'})
     }
 
 })
@@ -52,9 +52,10 @@ router.delete('/return/:bike_id', (req, res) => {
         res.status(200).json({ message: 'Bike returned successfully'})
     } catch (err) {
         console.log(err)
-        res.status(500).json({error: 'Something when wrong, the bike could not be rented'})
+        res.status(500).json({error: 'Something went wrong, the bike could not be rented'})
     }
 
 })
+
 
 export default router

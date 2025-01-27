@@ -29,3 +29,9 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+
+# database
+backEnd/sqlite.db
+
+# api testing
+backEnd/test.rest

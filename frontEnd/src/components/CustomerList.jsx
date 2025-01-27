@@ -1,6 +1,8 @@
+import { deleteCustomer } from "../Controllers/adminControllers"
+
 export default function CustomerList(props) {
 
-    const { customers } = props
+    const { customers, setCustomers } = props
 
     return(
         <table className="table table-hover">
@@ -20,7 +22,11 @@ export default function CustomerList(props) {
                             <th scope="row">{customer.customer_id}</th>
                             <td>{customer.email}</td>
                             <td><button className="btn btn-primary">Bike count: {customer.rental_count}</button></td>
-                            <td><button className="btn btn-primary">Edit</button></td>
+                            <td><button className="btn btn-danger" onClick={async() => {
+                                await deleteCustomer(customer.customer_id)
+                                setCustomers(customers.filter((newCustomer) => newCustomer.customer_id != customer.customer_id))
+                                console.log(customers)
+                            }}>Delete</button></td>
                             </tr>
                         )
                     })

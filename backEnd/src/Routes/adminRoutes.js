@@ -34,18 +34,49 @@ router.get('/allCustomers', (req, res) => {
     res.json( data )
 })
 
+// For permanently deleting a bike
+router.delete('/deleteBike/:bike_id', (req, res) => {
+    const { bike_id } = req.params
+
+    try {
+        // remove bike from rentals
+        const addRental = db.prepare(`DELETE FROM rentals WHERE bike_id = ?`)
+        addRental.run(bike_id)
+
+        // remove from bikes
+        const updateBike = db.prepare(`DELETE FROM bikes WHERE bike_id = ?`)
+        updateBike.run(bike_id)
+
+        res.status(200).json({ message: 'Bike deleted successfully'})
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({error: 'Something went wrong, the bike could not be deleted'})
+    }
+})
+
+// For permanently deleting a customer
+router.delete('/deleteCustomer/:customer_id', (req, res) => { 
+    const { customer_id } = req.params
+
+
+    try {
+        // If customer has bikes rented out, customer must return all bikes before they can be deleted
+        const findCustomer = db.prepare(`SELECT * FROM rentals WHERE customer_id = ?`)
+        const rentedBikes = findCustomer.all(customer_id)
+
+        if (rentedBikes.length > 0) {
+            // If there are rentals, prevent deletion
+            return res.status(400).json({ error: 'Customer must return all bikes before deletion' });
+        }
+
+        const deleteCustomer = db.prepare(`DELETE FROM customers WHERE customer_id = ?`)
+        deleteCustomer.run(customer_id)
+
+        res.status(200).json({ message: 'Customer deleted successfully'})
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({error: 'Something went wrong, the customer could not be deleted'})
+    }
+})
+
 export default router
-/* SELECT 
-    customers.customer_id, 
-    customers.email, 
-    COUNT(rentals.confirmation_id) AS rental_count
-    FROM 
-        customers
-    LEFT JOIN 
-        rentals 
-    ON 
-        customers.customer_id = rentals.customer_id
-    GROUP BY 
-        customers.customer_id, customers.email
-    ORDER BY
-        customers.customer_id;*/
