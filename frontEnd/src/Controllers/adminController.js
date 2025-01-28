@@ -33,7 +33,7 @@ export const deleteCustomer = async(customer_id) => {
         }
     })
     const data = await res.json()
-    return data
+    return data.message
 }
 
 export const deleteBike = async(bike_id) => {

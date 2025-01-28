@@ -74,7 +74,7 @@ router.delete('/deleteCustomer/:customer_id', (req, res) => {
 
         if (rentedBikes.length > 0) {
             // If there are rentals, prevent deletion
-            return res.status(400).json({ error: 'Customer must return all bikes before deletion' });
+            return res.status(400).json({ message: 'Customer must return all bikes before deletion' });
         }
 
         const deleteCustomer = db.prepare(`DELETE FROM customers WHERE customer_id = ?`)

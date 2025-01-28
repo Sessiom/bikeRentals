@@ -26,7 +26,11 @@ export default function CustomerList(props) {
                                 setSelectedTab('rental-manager')
                             }}>See {customer.rental_count} {customer.rental_count == 1 ? "Bike": "Bikes"}</button></td>
                             <td><button className={ userData.customer_id == customer.customer_id ? "btn btn-danger disabled": "btn btn-danger" } onClick={async() => {
-                                await deleteCustomer(customer.customer_id)
+                                const message =await deleteCustomer(customer.customer_id)
+                                if(message == "Customer must return all bikes before deletion"){
+                                    alert("Customer must return all bikes before deletion")
+                                    return
+                                }
                                 setCustomers(customers.filter((newCustomer) => newCustomer.customer_id != customer.customer_id))
                             }}>Delete</button></td>
                             </tr>
