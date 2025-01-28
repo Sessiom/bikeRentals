@@ -30,8 +30,5 @@ dist-ssr
 .env.local
 .env.*.local
 
-# database
-backEnd/sqlite.db
-
 # api testing
 backEnd/test.rest

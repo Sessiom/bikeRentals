@@ -1,9 +1,7 @@
-const API_URL = import.meta.env.VITE_API_URL
-
 export const getMyRentals = async () => {
     const token = localStorage.getItem('token')
     try{
-        const res = await fetch(`${API_URL}/customer/myRentals`, {
+        const res = await fetch(`/customer/myRentals`, {
             headers: {
                 'Authorization': token
             }
@@ -17,7 +15,7 @@ export const getMyRentals = async () => {
 
 export const rentBike = async(bike_id) => {
     const token = localStorage.getItem('token')
-    const res = await fetch(`${API_URL}/customer/rent/${bike_id}`, {
+    const res = await fetch(`/customer/rent/${bike_id}`, {
         method: 'PUT',
         headers: {
             'Authorization': token
@@ -29,7 +27,7 @@ export const rentBike = async(bike_id) => {
 
 export const returnBike = async(bike_id) => {
     const token = localStorage.getItem('token')
-    const res = await fetch(`${API_URL}/customer/return/${bike_id}`, {
+    const res = await fetch(`/customer/return/${bike_id}`, {
         method: 'DELETE',
         headers: {
             'Authorization': token

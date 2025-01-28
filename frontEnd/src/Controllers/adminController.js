@@ -1,8 +1,8 @@
-const API_URL = import.meta.env.VITE_API_URL
+
 
 export const getAllCustomers = async() => {
     const token = localStorage.getItem('token')
-    const res = await fetch(`${API_URL}/admin/allCustomers`,{
+    const res = await fetch(`/admin/allCustomers`,{
         headers: {
             'authorization': token
         }
@@ -13,7 +13,7 @@ export const getAllCustomers = async() => {
 
 export const addBike = async (type, size, image, name) => {
     const token = localStorage.getItem('token')
-    const res = await fetch(`${API_URL}/admin/addBike`, {
+    const res = await fetch(`/admin/addBike`, {
         method: 'POST',
         headers: { 
             'authorization': token,
@@ -26,7 +26,7 @@ export const addBike = async (type, size, image, name) => {
 
 export const deleteCustomer = async(customer_id) => {
     const token = localStorage.getItem('token')
-    const res = await fetch(`${API_URL}/admin/deleteCustomer/${customer_id}`,{
+    const res = await fetch(`/admin/deleteCustomer/${customer_id}`,{
         method: 'DELETE',
         headers: {
             'authorization': token
@@ -38,7 +38,7 @@ export const deleteCustomer = async(customer_id) => {
 
 export const deleteBike = async(bike_id) => {
     const token = localStorage.getItem('token')
-    const res = await fetch(`${API_URL}/admin/deleteBike/${bike_id}`,{
+    const res = await fetch(`/admin/deleteBike/${bike_id}`,{
         method: 'DELETE',
         headers: {
             'authorization': token
@@ -50,7 +50,7 @@ export const deleteBike = async(bike_id) => {
 
 export const getCustomerRentalsById = async(customer_id) => {
     const token = localStorage.getItem('token')
-    const res = await fetch(`${API_URL}/admin/customerRentals/${customer_id}`,{
+    const res = await fetch(`/admin/customerRentals/${customer_id}`,{
         headers: {
             'authorization': token
         }
@@ -61,7 +61,7 @@ export const getCustomerRentalsById = async(customer_id) => {
 
 export const validate = async() => {
     const token = localStorage.getItem('token')
-    const res = await fetch(`${API_URL}/admin/`,{
+    const res = await fetch(`/admin/`,{
         headers: {
             'authorization': token
         }

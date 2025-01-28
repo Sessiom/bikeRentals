@@ -1,7 +1,6 @@
 import express from 'express'
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
-import cors from 'cors'
 import bikeRoutes from './Routes/bikeRoutes.js'
 import authRoutes from './Routes/authRoutes.js'
 import customerRoutes from './Routes/customerRoutes.js'
@@ -10,12 +9,8 @@ import authCustomer from './Middleware/authCustomer.js'
 import authAdmin from './Middleware/authAdmin.js'
 
 const app = express()
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
-// Allow only the frontend (Vite development server) to make api requests
-app.use(cors({
-    origin: 'http://localhost:5173', // Your frontend URL
-}));
 
 // Get the file path from the URL of the current module
 const __filename = fileURLToPath(import.meta.url)
@@ -28,11 +23,12 @@ app.use(express.static(path.join(__dirname, '../../frontEnd/dist')))
 app.use(express.json())
 
 
-//Routes
+// Render client for any path
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../../frontEnd/dist/index.html'))
 })
 
+// Routes
 app.use('/auth', authRoutes);
 app.use('/bikes', bikeRoutes);
 app.use('/customer', authCustomer, customerRoutes);

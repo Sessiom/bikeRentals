@@ -4,6 +4,7 @@ import db from '../db.js'
 function authAdmin(req, res, next) {
     const token = req.headers['authorization']
     
+    // Check for valid token
     if (!token) { return res.status(401).json({ message: "No token provided" }) }
     
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
@@ -11,7 +12,7 @@ function authAdmin(req, res, next) {
     
         req.customerId = decoded.id
     })
-
+    // Check that user is an admin
     try {
         const admin = db.prepare(`SELECT is_admin FROM customers WHERE customer_id = ?`)
         const result = admin.get(req.customerId)

@@ -12,10 +12,10 @@ function App() {
   const [bikes, setBikes] = useState([]);
   const [myRentals, setMyRentals] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedTab, setSelectedTab] = useState('available-rentals')
+  const [selectedTab, setSelectedTab] = useState('available-rentals') // Initialize tab to show available rentals
   const [isLoggedIn , setIsLoggedIn] = useState(false)
   
-  
+  // When page is loaded fetch bike and customer data if they are logged in
   useEffect(() => {
 
       async function fetchBikes() {
@@ -30,14 +30,14 @@ function App() {
       }
       async function fetchMyData() {
         try{
-          const res = await fetch(`${import.meta.env.VITE_API_URL}/customer/myInfo`,
+          const res = await fetch(`/customer/myInfo`,
             {
               headers: {
                 'Authorization': token
               }})
           const data = await res.json()
 
-          // When token expires
+          // When token expires log out customer
           if(data.message == 'Invalid token'){ 
             setIsLoggedIn(false);
             return
