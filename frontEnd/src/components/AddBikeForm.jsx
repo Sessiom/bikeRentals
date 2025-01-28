@@ -1,5 +1,5 @@
 import { useState} from 'react'
-import { addBike } from '../Controllers/bikeControllers'
+import { addBike } from '../Controllers/adminController'
 
 export default function AddBikeForm() {
 

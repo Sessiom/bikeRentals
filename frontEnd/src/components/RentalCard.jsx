@@ -1,4 +1,4 @@
-import { rentBike } from "../Controllers/bikeControllers"
+import { rentBike } from "../Controllers/customerController"
 
 export default function RentalCard(props) {
 

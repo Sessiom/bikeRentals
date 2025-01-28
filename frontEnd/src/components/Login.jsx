@@ -1,4 +1,4 @@
-import { login, register } from '../Controllers/authControllers'
+import { login, register } from '../Controllers/authController'
 import { useState } from 'react'
 
 export default function Login(props) {

@@ -3,12 +3,14 @@ import db from '../db.js'
 
 const router = express.Router()
 
+// For displaying username and id
 router.get('/myInfo', (req, res) => {
     const myInfo = db.prepare(`SELECT * FROM customers WHERE customer_id = ?`)
     const data = myInfo.get(req.customerId)
     res.json(data)
 })
 
+// For displaying rentals
 router.get('/myRentals', (req, res) => {
     const getRentalAndBikes = db.prepare(`SELECT * FROM rentals INNER JOIN bikes ON rentals.bike_id = bikes.bike_id WHERE rentals.customer_id = ?`)
     const rentalInfo = getRentalAndBikes.all(req.customerId)

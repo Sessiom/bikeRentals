@@ -1,5 +1,5 @@
-import { deleteCustomer } from "../Controllers/adminControllers"
-import { getCustomerRentalsById } from "../Controllers/adminControllers"
+import { deleteCustomer } from "../Controllers/adminController"
+import { getCustomerRentalsById } from "../Controllers/adminController"
 
 export default function CustomerList(props) {
 

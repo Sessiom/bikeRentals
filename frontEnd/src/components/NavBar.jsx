@@ -1,5 +1,6 @@
-import { validate } from "../Controllers/adminControllers"
-import { getAllBikes, getAvailableBikes, getMyRentals } from "../Controllers/bikeControllers"
+import { validate } from "../Controllers/adminController"
+import { getAllBikes, getAvailableBikes} from "../Controllers/bikeController"
+import { getMyRentals } from "../Controllers/customerController"
 
 export default function NavBar(props) {
 

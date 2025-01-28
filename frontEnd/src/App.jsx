@@ -1,10 +1,10 @@
 import NavBar from "./components/NavBar"
 import RentalList from "./components/RentalList"
-import { getAvailableBikes } from "./Controllers/bikeControllers"
+import { getAvailableBikes } from "./Controllers/bikeController"
 import { useState, useEffect } from "react"
 import Login from "./components/Login"
 import MyRentals from "./components/MyRentals"
-import Admin from "./components/admin"
+import Admin from "./components/Admin"
 import ErrorPage from "./components/ErrorPage"
 
 function App() {

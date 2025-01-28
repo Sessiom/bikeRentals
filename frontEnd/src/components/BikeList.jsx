@@ -1,4 +1,4 @@
-import { deleteBike } from "../Controllers/adminControllers"
+import { deleteBike } from "../Controllers/adminController"
 
 export default function BikeList(props) {
 

@@ -11,6 +11,19 @@ export const getAllCustomers = async() => {
     return data
 }
 
+export const addBike = async (type, size, image, name) => {
+    const token = localStorage.getItem('token')
+    const res = await fetch(`${API_URL}/admin/addBike`, {
+        method: 'POST',
+        headers: { 
+            'authorization': token,
+            'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, image, name, size })
+    })
+    const data = await res.json()
+    return data
+}
+
 export const deleteCustomer = async(customer_id) => {
     const token = localStorage.getItem('token')
     const res = await fetch(`${API_URL}/admin/deleteCustomer/${customer_id}`,{

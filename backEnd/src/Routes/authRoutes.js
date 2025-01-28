@@ -16,7 +16,7 @@ router.post('/register', (req, res) =>{
         const insertCustomer = db.prepare(`INSERT INTO customers (email, password) VALUES (?, ?)`)
         const customer = insertCustomer.run(email, hashedPassword)
         const customer_id = customer.lastInsertRowid
-        const token = jwt.sign({ id: customerId }, process.env.JWT_SECRET, { expiresIn: '24h'})
+        const token = jwt.sign({ id: customer_id }, process.env.JWT_SECRET, { expiresIn: '24h'})
 
         // After creating a new customer send back a JWT
         res.json({ token, customer_id, email })
@@ -46,7 +46,7 @@ router.post('/login', (req, res) =>{
 
          // After authenticating send back a JWT
          const customer_id = customer.customer_id
-         const token = jwt.sign({ id: customerId }, process.env.JWT_SECRET, { expiresIn: '24h' })
+         const token = jwt.sign({ id: customer_id }, process.env.JWT_SECRET, { expiresIn: '24h' })
          res.json({ token, customer_id, email })
     } catch (err) {
         console.log(err)

@@ -1,10 +1,10 @@
-import {getAllCustomers}from "../Controllers/adminControllers"
+import {getAllCustomers}from "../Controllers/adminController"
 import { useState, useEffect } from 'react'
 import CustomerList from "./CustomerList"
 import AddBikeForm from "./AddBikeForm"
 import RentalManager from "./RentalManager"
 import BikeList from "./BikeList"
-import { getAllBikes } from "../Controllers/bikeControllers"
+import { getAllBikes } from "../Controllers/bikeController"
 
 export default function Admin(props) {
     const { userData } = props

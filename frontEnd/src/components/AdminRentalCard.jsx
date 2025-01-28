@@ -1,4 +1,4 @@
-import { returnBike } from "../Controllers/bikeControllers"
+import { returnBike } from "../Controllers/customerController"
 
 export default function PersonalRentalCard(props) {
 
