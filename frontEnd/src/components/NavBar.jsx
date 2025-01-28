@@ -9,7 +9,7 @@ export default function NavBar(props) {
     return(
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-            <a className="navbar-brand" style={{ cursor: 'pointer' }}>Rex's Rentals</a>
+            <a className="navbar-brand">Rex's Rentals</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
             </button>
@@ -36,14 +36,14 @@ export default function NavBar(props) {
                 </li>}
                 
                 <li className="nav-item">
-                <a className={selectedTab == 'all-rentals' ? "nav-link text-success" :"nav-link" } onClick={async() => {
+                <a className={selectedTab == 'all-rentals' ? "nav-link text-primary" :"nav-link" } onClick={async() => {
                     setSelectedTab('all-rentals')
                     setBikes(await getAllBikes())
                     }} style={{ cursor: 'pointer' }}>All Rentals</a>
                 </li>
 
                 <li className="nav-item">
-                <a className={selectedTab == 'available-rentals' ? "nav-link text-success" :"nav-link" } onClick={async() => {
+                <a className={selectedTab == 'available-rentals' ? "nav-link text-primary" :"nav-link" } onClick={async() => {
                     setSelectedTab('available-rentals')
                     setBikes(await getAvailableBikes())
                     }} style={{ cursor: 'pointer' }}>Available Rentals</a>
@@ -51,14 +51,14 @@ export default function NavBar(props) {
 
                 {isLoggedIn ?
                 <li className="nav-item">
-                <a className={selectedTab == 'my-rentals' ? "nav-link text-success" :"nav-link" } onClick={async() => {
+                <a className={selectedTab == 'my-rentals' ? "nav-link text-primary" :"nav-link" } onClick={async() => {
                     setSelectedTab('my-rentals')
                     setMyRentals(await getMyRentals())
                     }} style={{ cursor: 'pointer' }}>My Rentals</a>
                 </li>: ""}
 
                 <li className="nav-item">
-                <a className={selectedTab == 'admin' ? "nav-link text-success" :"nav-link" } onClick={async() => {
+                <a className={selectedTab == 'admin' ? "nav-link text-primary" :"nav-link" } onClick={async() => {
                     const res = await validate()
                     if(res.message == "Access Granted"){setSelectedTab('admin')}
                     else setSelectedTab('error')

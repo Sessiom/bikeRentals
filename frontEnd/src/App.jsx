@@ -62,7 +62,7 @@ function App() {
       { selectedTab == 'sign-in' ? 
             <Login setUserData={setUserData} setSelectedTab={setSelectedTab} setIsLoggedIn={setIsLoggedIn}/> : 
         selectedTab == 'available-rentals' || selectedTab == 'all-rentals'?
-            <RentalList bikes={bikes} setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals} loading={loading} setSelectedTab={setSelectedTab}/> : 
+            <RentalList isLoggedIn={isLoggedIn} bikes={bikes} setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals} loading={loading} setSelectedTab={setSelectedTab}/> : 
         selectedTab == 'my-rentals' ? 
             <MyRentals setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals}/> :
         selectedTab == 'admin' ? 
