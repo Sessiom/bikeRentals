@@ -7,13 +7,17 @@ export default function Login(props) {
     const [ password, setPassword] = useState("")
     const [ message, setMessage] = useState("")
 
+    const validateEmail = (email) => {
+        return /\S+@\S+\.\S+/.test(email); // Basic email regex check
+    };
+
     const handleLogin = async (e) => {
         e.preventDefault();
         if (!email || !password) return; 
         const data = await login(email, password);
         setMessage(data.message)
 
-        // If the user is created
+        // If the user is logged in
         if (data.email) {
             setSelectedTab('available-rentals')
             setIsLoggedIn(true)
@@ -23,6 +27,10 @@ export default function Login(props) {
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        if (!validateEmail(email)) {
+            setMessage("Invalid email format");
+            return;
+        }
         if (!email || !password) return;
         const data = await register(email, password); 
         setMessage(data.message)

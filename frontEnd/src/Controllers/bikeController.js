@@ -1,13 +1,12 @@
 
 export const getAvailableBikes = async () => {
-    const res = await fetch(`/bikes/allAvailableBikes`)
+    const res = await fetch(`/api/bikes/allAvailableBikes`)
     const data = await res.json()
-    console.log(data)
     return data.bikes
 }
 
 export const getAllBikes = async () => {
-    const res = await fetch(`/bikes/allBikes`)
+    const res = await fetch(`/api/bikes/allBikes`)
     const data = await res.json()
     return data.bikes
 }

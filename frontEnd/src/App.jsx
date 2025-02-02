@@ -6,6 +6,7 @@ import Login from "./components/Login"
 import MyRentals from "./components/MyRentals"
 import Admin from "./components/Admin"
 import ErrorPage from "./components/ErrorPage"
+import { getMyInfo } from "./Controllers/customerController"
 
 function App() {
   const [userData, setUserData] = useState({});
@@ -28,14 +29,10 @@ function App() {
           setLoading(false);
         }
       }
+
       async function fetchMyData() {
         try{
-          const res = await fetch(`/customer/myInfo`,
-            {
-              headers: {
-                'Authorization': token
-              }})
-          const data = await res.json()
+          const data = await getMyInfo()
 
           // When token expires log out customer
           if(data.message == 'Invalid token'){ 

@@ -29,10 +29,10 @@ app.get('/', (req, res) => {
 })
 
 // Routes
-app.use('/auth', authRoutes);
-app.use('/bikes', bikeRoutes);
-app.use('/customer', authCustomer, customerRoutes);
-app.use('/admin', authAdmin, adminRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/bikes', bikeRoutes);
+app.use('/api/customer', authCustomer, customerRoutes);
+app.use('/api/admin', authAdmin, adminRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`)
