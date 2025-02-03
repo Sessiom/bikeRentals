@@ -46,8 +46,9 @@ router.post('/login', (req, res) =>{
 
          // After authenticating send back a JWT
          const customer_id = customer.customer_id
+         const is_admin = customer.is_admin
          const token = jwt.sign({ id: customer_id }, process.env.JWT_SECRET, { expiresIn: '24h' })
-         res.json({ token, customer_id, email })
+         res.json({ token, customer_id, email, is_admin })
     } catch (err) {
         console.log(err)
         res.sendStatus(500)

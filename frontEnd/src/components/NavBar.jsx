@@ -1,11 +1,10 @@
-import { validate } from "../Controllers/adminController"
-import { getAllBikes, getAvailableBikes} from "../Controllers/bikeController"
-import { getMyRentals } from "../Controllers/customerController"
+import { Link } from "react-router"
+import { useNavigate } from "react-router"
 
 export default function NavBar(props) {
 
-    const { selectedTab, setBikes, setMyRentals, setSelectedTab, isLoggedIn, setIsLoggedIn, userData }= props
-
+    const { isLoggedIn, setIsLoggedIn, userData, setIsAdmin }= props
+    const navigate = useNavigate();
     return(
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
@@ -25,44 +24,29 @@ export default function NavBar(props) {
                 {/* Hide sign in if the user is already signed in*/}
                 {!isLoggedIn ?
                 <li className="nav-item">
-                <a className="nav-link" aria-current="page" onClick={() => setSelectedTab('sign-in')} style={{ cursor: 'pointer' }}>Sign In</a>
+                <Link to="/login" className="nav-link" aria-current="login" >Login</Link>
                 </li>: 
                 // show Log out if user is signed in
                 <li className="nav-item">
-                <a className="nav-link" aria-current="page" onClick={() => {
+                <a className="nav-link" aria-current="" onClick={() => {
                     localStorage.clear()
                     setIsLoggedIn(false)
+                    setIsAdmin(false)
+                    navigate("/")
                 }} style={{ cursor: 'pointer' }}>Log out</a>
                 </li>}
-                
-                <li className="nav-item">
-                <a className={selectedTab == 'all-rentals' ? "nav-link text-primary" :"nav-link" } onClick={async() => {
-                    setSelectedTab('all-rentals')
-                    setBikes(await getAllBikes())
-                    }} style={{ cursor: 'pointer' }}>All Rentals</a>
-                </li>
 
                 <li className="nav-item">
-                <a className={selectedTab == 'available-rentals' ? "nav-link text-primary" :"nav-link" } onClick={async() => {
-                    setSelectedTab('available-rentals')
-                    setBikes(await getAvailableBikes())
-                    }} style={{ cursor: 'pointer' }}>Available Rentals</a>
+                <Link to="/" className="nav-link" aria-current="view rentals">View rentals</Link>
                 </li>
 
                 {isLoggedIn ?
                 <li className="nav-item">
-                <a className={selectedTab == 'my-rentals' ? "nav-link text-primary" :"nav-link" } onClick={async() => {
-                    setSelectedTab('my-rentals')
-                    setMyRentals(await getMyRentals())
-                    }} style={{ cursor: 'pointer' }}>My Rentals</a>
+                <Link to="/myRentals" className="nav-link">My Rentals</Link>
                 </li>: ""}
 
                 <li className="nav-item">
-                <a className={selectedTab == 'admin' ? "nav-link text-primary" :"nav-link" } onClick={async() => {
-                    const res = await validate()
-                    if(res.message == "Access Granted"){setSelectedTab('admin')}
-                    else setSelectedTab('error')
-                    }} style={{ cursor: 'pointer' }}>Admin</a>
+                <Link to="/admin" className="nav-link" >Admin</Link>
                 </li>
             </ul>
             </div>

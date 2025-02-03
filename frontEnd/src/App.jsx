@@ -1,35 +1,25 @@
 import NavBar from "./components/NavBar"
 import RentalList from "./components/RentalList"
-import { getAvailableBikes } from "./Controllers/bikeController"
 import { useState, useEffect } from "react"
 import Login from "./components/Login"
 import MyRentals from "./components/MyRentals"
 import Admin from "./components/Admin"
 import ErrorPage from "./components/ErrorPage"
 import { getMyInfo } from "./Controllers/customerController"
+import { Routes, Route } from 'react-router'
+import AddBikeForm from "./components/AddBikeForm"
+import BikeList from "./components/BikeList"
+import CustomerList from "./components/CustomerList"
 
 function App() {
   const [userData, setUserData] = useState({});
   const [bikes, setBikes] = useState([]);
   const [myRentals, setMyRentals] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedTab, setSelectedTab] = useState('available-rentals') // Initialize tab to show available rentals
-  const [isLoggedIn , setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   
-  // When page is loaded fetch bike and customer data if they are logged in
+  // When page is loaded fetch customer data if they are logged in
   useEffect(() => {
-
-      async function fetchBikes() {
-        try {
-          const bikesData = await getAvailableBikes();
-          setBikes(bikesData);
-        } catch(error) {
-          console.log("Error fetching bikes:", error)
-        } finally {
-          setLoading(false);
-        }
-      }
-
       async function fetchMyData() {
         try{
           const data = await getMyInfo()
@@ -39,31 +29,34 @@ function App() {
             setIsLoggedIn(false);
             return
           }
+          console.log(data)
+          setIsLoggedIn(true);
           setUserData(data)
+          setIsAdmin(data.is_admin)
         } catch(err) {
           console.log(err)
         } 
       }
-      fetchBikes();
       const token = localStorage.getItem('token')
       if(token) {
         fetchMyData()
-        setIsLoggedIn(true);
       } 
   }, [])
 
 
   return (
     <>
-      <NavBar selectedTab={selectedTab} myRentals={myRentals} setBikes={setBikes} userData={userData} setSelectedTab={setSelectedTab} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setMyRentals={setMyRentals}/>
-      { selectedTab == 'sign-in' ? 
-            <Login setUserData={setUserData} setSelectedTab={setSelectedTab} setIsLoggedIn={setIsLoggedIn}/> : 
-        selectedTab == 'available-rentals' || selectedTab == 'all-rentals'?
-            <RentalList isLoggedIn={isLoggedIn} bikes={bikes} setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals} loading={loading} setSelectedTab={setSelectedTab}/> : 
-        selectedTab == 'my-rentals' ? 
-            <MyRentals setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals}/> :
-        selectedTab == 'admin' ? 
-            <Admin userData={userData}/> : <ErrorPage/>}
+      <NavBar myRentals={myRentals} setBikes={setBikes} userData={userData} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setMyRentals={setMyRentals} setIsAdmin={setIsAdmin}/>
+        <Routes>
+            <Route path="/" element={<RentalList isLoggedIn={isLoggedIn} bikes={bikes} setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals}/>}/>
+            <Route path="/login" element={<Login setIsAdmin={setIsAdmin} setUserData={setUserData} setIsLoggedIn={setIsLoggedIn}/> }/> 
+            <Route path="/myRentals" element={isLoggedIn ? <MyRentals setBikes={setBikes} setMyRentals={setMyRentals} myRentals={myRentals}/> : 
+                                                           <Login setIsAdmin={setIsAdmin} setUserData={setUserData} setIsLoggedIn={setIsLoggedIn}/>}/>
+            <Route path="/admin" element={isAdmin ? <Admin userData={userData}/>:
+                                                    <ErrorPage />}>
+            </Route>
+            <Route path="*" element={<ErrorPage/>}/> 
+        </Routes>
     </>
   )
 }

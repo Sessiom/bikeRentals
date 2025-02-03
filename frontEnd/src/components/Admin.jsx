@@ -26,21 +26,21 @@ export default function Admin(props) {
         <>
         <ul className="nav justify-content-center">
         <li className="nav-item">
-            <a className="nav-link active" style={{ cursor: 'pointer' }} onClick={async () => {
+            <a className="btn m-1 active" style={{ cursor: 'pointer' }} onClick={async () => {
                 const customers = await getAllCustomers()
                 setCustomers(customers)
                 setSelectedTab("customer-list")
             }}>Customers list</a>
         </li>
         <li className="nav-item">
-            <a className="nav-link active" style={{ cursor: 'pointer' }} onClick={async () => {
+            <a className="btn m-1 active" style={{ cursor: 'pointer' }} onClick={async () => {
                 const bikes = await getAllBikes()
                 setBikes(bikes)
                 setSelectedTab("bike-manager")
             }}>Bike list</a>
         </li>
         <li className="nav-item">
-            <a className="nav-link" style={{ cursor: 'pointer' }} onClick={ () => setSelectedTab("add-new-bike")}>Add new bike</a>
+            <a className="btn m-1 active" style={{ cursor: 'pointer' }} onClick={ () => setSelectedTab("add-new-bike")}>Add new bike</a>
         </li>
         </ul>
 
