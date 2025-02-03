@@ -2,7 +2,7 @@
 
 Welcome to **Rex's Rentals**, a demo rental store website built using **React + Vite**. This project showcases a modern frontend for an online rental service with an Express.js backend and an SQLite database.
 
-![Home Page](homePage.png)
+![Home Page](https://github.com/Sessiom/bikeRentals/blob/main/homePage.PNG?raw=true)
 
 ## Demo Admin Access
 
