@@ -1,9 +1,11 @@
 import { rentBike } from "../Controllers/customerController"
+import { useNavigate } from 'react-router'
 
 export default function RentalCard(props) {
 
-    const { bike, setBikes, bikes, setSelectedTab} = props
+    const { bike, setBikes, bikes} = props
     const { bike_id, type, image, name, size, available} = bike
+    const navigate = useNavigate();
 
     return(
         <div className="card m-3" style={{ width: 18 + "rem" }}>
@@ -15,7 +17,7 @@ export default function RentalCard(props) {
             <button className={available ? "btn btn-primary" : "btn btn-primary disabled"} onClick={async () => {
                 const token = localStorage.getItem('token')
                 if(!token) { 
-                    setSelectedTab('sign-in')
+                    navigate("/login")
                     alert("You must sign in to rent a bike")
                     return
                 }

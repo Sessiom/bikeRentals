@@ -4,7 +4,7 @@ import { getAllBikes, getAvailableBikes } from "../Controllers/bikeController"
 
 export default function RentalList(props) {
 
-    const { bikes, setBikes, setMyRentals, setSelectedTab, isLoggedIn } = props
+    const { bikes, setBikes, setMyRentals, isLoggedIn } = props
 
     const [ filter, setFilter] = useState("All available bikes")
 
@@ -32,7 +32,7 @@ export default function RentalList(props) {
                     <option >All bikes</option>
                 </select>
                     {   bikes.length > 0 ? bikes.map((bike) => {
-                        return <RentalCard key={bike.bike_id} setSelectedTab={setSelectedTab} bike={bike} bikes={bikes} setBikes={setBikes} setMyRentals={setMyRentals}/>
+                        return <RentalCard key={bike.bike_id} bike={bike} bikes={bikes} setBikes={setBikes} setMyRentals={setMyRentals}/>
                     }) : "No bikes available"}
             </div>
         </div>

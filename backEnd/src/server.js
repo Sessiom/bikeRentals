@@ -22,17 +22,16 @@ const __dirname = dirname(__filename)
 app.use(express.static(path.join(__dirname, '../../frontEnd/dist')))
 app.use(express.json())
 
-
-// Render client for any path
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontEnd/dist/index.html'))
-})
-
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/bikes', bikeRoutes);
 app.use('/api/customer', authCustomer, customerRoutes);
 app.use('/api/admin', authAdmin, adminRoutes);
+
+//Catch all for serving frontend
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../frontEnd/dist/index.html'))
+})
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`)
